@@ -1,22 +1,29 @@
 :root {
     --gold: #e6c87a;
+    --bg-glass: rgba(32,22,18,0.78);
 }
 
+/* RESET */
 * {
     box-sizing: border-box;
-    font-family: "Noto Serif", "Times New Roman", serif;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
 }
 
 body {
     margin: 0;
-    height: 100vh;
+    font-family: "Noto Serif", "Times New Roman", serif;
     background:
-        radial-gradient(circle at top, rgba(245,220,160,0.3), transparent 45%),
+        radial-gradient(circle at top, rgba(245,220,160,0.28), transparent 45%),
         linear-gradient(180deg, #1a0f0c, #3a1914);
     color: #fff;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
+/* AMBIENT */
 canvas {
     position: fixed;
     inset: 0;
@@ -27,30 +34,30 @@ canvas {
 .container {
     position: relative;
     z-index: 1;
-    max-width: 560px;
+    max-width: min(560px, 92vw);
     margin: auto;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 56px 44px;
+    min-height: 100svh;
+
+    padding: clamp(28px, 5vw, 56px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
 
-    background: rgba(30,20,16,0.82);
-    backdrop-filter: blur(22px);
-    border-radius: 36px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    border-radius: clamp(20px, 4vw, 36px);
 
     box-shadow:
-        0 80px 160px rgba(0,0,0,0.55),
+        0 40px 100px rgba(0,0,0,0.55),
         inset 0 0 0 1px rgba(255,255,255,0.08);
 }
 
-/* THƯ PHÁP */
+/* CALLIGRAPHY */
 .calligraphy {
-    width: 120px;
-    margin: 0 auto 24px;
-}
-
-.calligraphy svg {
-    width: 100%;
+    width: clamp(72px, 20vw, 120px);
+    margin-bottom: clamp(16px, 4vw, 24px);
 }
 
 .calligraphy path {
@@ -58,72 +65,83 @@ canvas {
     stroke: var(--gold);
     stroke-width: 6;
     stroke-linecap: round;
-    stroke-linejoin: round;
-
     stroke-dasharray: 600;
     stroke-dashoffset: 600;
     animation: draw 6s ease forwards;
-    animation-delay: 2s;
 }
 
 @keyframes draw {
-    to {
-        stroke-dashoffset: 0;
-    }
+    to { stroke-dashoffset: 0; }
 }
 
-/* TITLE */
+/* TITLES */
 h1 {
     margin: 0;
-    font-size: 32px;
-    letter-spacing: 2px;
+    font-size: clamp(22px, 5vw, 32px);
+    letter-spacing: 0.15em;
 }
 
 h2 {
-    margin-top: 10px;
-    font-size: 18px;
-    letter-spacing: 6px;
+    margin-top: 8px;
+    font-size: clamp(14px, 3.5vw, 18px);
+    letter-spacing: 0.35em;
     color: var(--gold);
 }
 
 /* COUNTDOWN */
 #countdown {
-    display: flex;
-    justify-content: center;
-    gap: 18px;
-    margin: 38px 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(10px, 3vw, 18px);
+    margin: clamp(24px, 6vw, 38px) 0;
 }
 
 .box {
     background: linear-gradient(180deg, #241714, #1a0f0c);
-    border-radius: 22px;
-    padding: 22px 16px;
-    min-width: 100px;
+    border-radius: clamp(14px, 3vw, 22px);
+    padding: clamp(14px, 3vw, 22px) clamp(10px, 2.5vw, 16px);
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.4),
+        inset 0 0 0 1px rgba(255,255,255,0.08);
 }
 
 .box span {
-    font-size: 38px;
+    display: block;
+    font-size: clamp(26px, 7vw, 38px);
+    font-weight: 500;
 }
 
 .box small {
-    font-size: 13px;
+    font-size: clamp(11px, 3vw, 13px);
     color: var(--gold);
-    letter-spacing: 1px;
+    letter-spacing: 0.12em;
 }
 
 /* BUTTON */
 button {
+    margin-top: clamp(8px, 2vw, 16px);
+    padding: clamp(12px, 3vw, 14px) clamp(22px, 6vw, 30px);
+    font-size: clamp(14px, 3.5vw, 15px);
+
     background: rgba(230,200,122,0.12);
     border: 1px solid rgba(230,200,122,0.55);
     color: var(--gold);
-    padding: 14px 30px;
     border-radius: 999px;
-    font-size: 15px;
     cursor: pointer;
 }
 
+/* FOOTER NOTE */
 .note {
-    margin-top: 22px;
-    font-size: 13px;
+    margin-top: clamp(14px, 4vw, 22px);
+    font-size: clamp(11px, 3vw, 13px);
     opacity: 0.85;
+}
+
+/* MOBILE NARROW */
+@media (max-width: 420px) {
+    #countdown {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
